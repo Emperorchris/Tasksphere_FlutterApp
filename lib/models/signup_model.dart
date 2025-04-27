@@ -79,3 +79,4 @@ class Register {
       confirmPassword.hashCode;
   }
 }
+

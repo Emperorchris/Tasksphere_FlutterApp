@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tasksphere_riverpod/pages/signup_screen.dart';
+import 'package:tasksphere_riverpod/pages/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       Center(
                         child: const Text(
-                          'Sign In',
+                          'Register',
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
@@ -45,6 +45,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const InputDecoration(
                           labelText: 'Email',
                           hintText: 'Enter your email',
+                          // hintStyle: TextStyle(fontSize: 12),
+                          // labelStyle: TextStyle(fontSize: 12),
+                          // contentPadding: EdgeInsets.all(10),
+                          // border: OutlineInputBorder(
+                          //   borderRadius: BorderRadius.all(Radius.circular(5)),
+                          // ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Username',
+                          hintText: 'Enter your Username',
                         ),
                       ),
                       const SizedBox(height: 15),
@@ -55,16 +68,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Confirm Password',
+                          hintText: 'Enter your password',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
-                          Checkbox(
-                            value: false,
-                            onChanged: (value) {
-                              if (value != null) {
-                                value = !value;
-                              }
-                            },
-                          ),
+                          Checkbox(value: false, onChanged: (value) {}),
                           const Text('Show password'),
                         ],
                       ),
@@ -79,17 +92,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Text('Don\'t have an account?'),
+                          const Text('Already have an account?'),
                           TextButton(
                             onPressed: () {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const SignUpScreen(),
+                                  builder: (context) => const LoginScreen(),
                                 ),
                               );
                             },
-                            child: const Text('Register'),
+                            child: const Text('Login'),
                           ),
                         ],
                       ),
@@ -103,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: const Text(
-                          'Login',
+                          'Sign Up',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

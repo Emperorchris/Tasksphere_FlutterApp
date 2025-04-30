@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasksphere_riverpod/pages/login_screen.dart';
+import 'package:tasksphere_riverpod/pages/auth/login_screen.dart';
+import 'package:tasksphere_riverpod/pages/userDashboard/root_screen.dart';
+import 'package:tasksphere_riverpod/providers/auth_provider.dart';
+import 'package:toastification/toastification.dart';
 
 void main() {
-  runApp(ProviderScope(child: const MyApp()));
+  runApp(ProviderScope(child: ToastificationWrapper(child: const MyApp())));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

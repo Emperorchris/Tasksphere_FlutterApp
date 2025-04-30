@@ -7,8 +7,9 @@ plugins {
 
 android {
     namespace = "dev.emperor.tasksphere_riverpod"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 35
+    // ndkVersion = "21"
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

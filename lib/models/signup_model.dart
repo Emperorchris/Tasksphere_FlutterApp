@@ -15,20 +15,6 @@ class Register {
 
  
 
-  Register copyWith({
-    String? email,
-    String? username,
-    String? password,
-    String? confirmPassword,
-  }) {
-    return Register(
-      email: email ?? this.email,
-      username: username ?? this.username,
-      password: password ?? this.password,
-      confirmPassword: confirmPassword ?? this.confirmPassword,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
   
@@ -55,28 +41,17 @@ class Register {
 
   factory Register.fromJson(String source) => Register.fromMap(json.decode(source));
 
-  @override
-  String toString() {
-    return 'Register(email: $email, username: $username, password: $password, confirmPassword: $confirmPassword)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is Register &&
-      other.email == email &&
-      other.username == username &&
-      other.password == password &&
-      other.confirmPassword == confirmPassword;
-  }
-
-  @override
-  int get hashCode {
-    return email.hashCode ^
-      username.hashCode ^
-      password.hashCode ^
-      confirmPassword.hashCode;
+  Register copyWith({
+    String? email,
+    String? username,
+    String? password,
+    String? confirmPassword,
+  }) {
+    return Register(
+      email: email ?? this.email,
+      username: username ?? this.username,
+      password: password ?? this.password,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
+    );
   }
 }
-

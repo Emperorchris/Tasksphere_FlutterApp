@@ -148,7 +148,7 @@ class _RootScreenState extends ConsumerState<RootScreen> {
       body: PageView(
         controller: _pageController,
         physics:
-            NeverScrollableScrollPhysics(), // Prevent swiping if not desired
+            NeverScrollableScrollPhysics(),
         children: _pages,
       ),
     );

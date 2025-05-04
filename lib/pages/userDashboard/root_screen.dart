@@ -12,6 +12,7 @@ import 'package:tasksphere_riverpod/pages/userDashboard/create_project.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/user_dashboard.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/user_profile.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/user_project.dart';
+import 'package:tasksphere_riverpod/pages/userDashboard/user_settings.dart';
 import 'package:tasksphere_riverpod/providers/auth_provider.dart';
 import 'package:tasksphere_riverpod/providers/dio_provider.dart';
 
@@ -56,7 +57,7 @@ class _RootScreenState extends ConsumerState<RootScreen> {
       UserDashboard(),
       UserProject(),
       Calendar(),
-      UserProfile(),
+      UserSettings(),
     ];
 
     void onDrawerItemTapped(int index) {
@@ -142,7 +143,14 @@ class _RootScreenState extends ConsumerState<RootScreen> {
                         // fixedSize: WidgetStatePropertyAll(const Size(24, 24)),
                         // tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UserProfile(),
+                          ),
+                        );
+                      },
                       icon: Icon(Icons.person, size: 20),
                     ),
                   ],

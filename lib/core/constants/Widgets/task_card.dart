@@ -32,7 +32,12 @@ class TaskCard extends ConsumerWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(image),
+            child: Image.network(
+              image,
+              height: 150,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(height: 20),
           Text(
@@ -47,7 +52,7 @@ class TaskCard extends ConsumerWidget {
             animation: true,
             lineHeight: 15.0,
             animationDuration: 2500,
-            percent: 0.8,
+            percent: percent / 100,
             barRadius: Radius.circular(10),
             center: Text(
               "${percent.toString()} %",

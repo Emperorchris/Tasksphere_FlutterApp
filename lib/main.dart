@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasksphere_riverpod/pages/auth/login_screen.dart';
+import 'package:tasksphere_riverpod/features/auth/presentation/login_screen.dart';
+import 'package:tasksphere_riverpod/features/homepage/home_screen.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/root_screen.dart';
-import 'package:tasksphere_riverpod/providers/auth_provider.dart';
 import 'package:toastification/toastification.dart';
 
 void main() {
@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         scaffoldBackgroundColor: Colors.grey.shade200,
       ),
-      home: RootScreen(),
+      home: HomeScreen(),
     );
   }
 }

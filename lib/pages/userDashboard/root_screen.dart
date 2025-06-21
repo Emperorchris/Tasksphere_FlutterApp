@@ -4,17 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:tasksphere_riverpod/constants/Widgets/task_card.dart';
-import 'package:tasksphere_riverpod/constants/Widgets/task_today_card.dart';
+import 'package:tasksphere_riverpod/core/constants/Widgets/task_card.dart';
+import 'package:tasksphere_riverpod/core/constants/Widgets/task_today_card.dart';
 import 'package:tasksphere_riverpod/models/user_model.dart';
+import 'package:tasksphere_riverpod/features/homepage/home_screen.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/calendar.dart';
-import 'package:tasksphere_riverpod/pages/userDashboard/create_project.dart';
+import 'package:tasksphere_riverpod/features/project/presentation/create_project_screen.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/user_dashboard.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/user_profile.dart';
-import 'package:tasksphere_riverpod/pages/userDashboard/user_project.dart';
+import 'package:tasksphere_riverpod/features/project/presentation/user_projects_screen.dart';
 import 'package:tasksphere_riverpod/pages/userDashboard/user_settings.dart';
-import 'package:tasksphere_riverpod/providers/auth_provider.dart';
-import 'package:tasksphere_riverpod/providers/dio_provider.dart';
 
 class RootScreen extends ConsumerStatefulWidget {
   const RootScreen({super.key});
@@ -26,36 +25,12 @@ class RootScreen extends ConsumerStatefulWidget {
 class _RootScreenState extends ConsumerState<RootScreen> {
   @override
   Widget build(BuildContext context) {
-    final dio = ref.watch(dioProvider);
-
-    // Add interceptor once using a valid ref
-    if (dio.interceptors.isEmpty) {
-      dio.interceptors.add(
-        InterceptorsWrapper(
-          onRequest: (options, handler) {
-            final authState = ref.read(authControllerProvider);
-            if (authState is AsyncData<User?> && authState.value != null) {
-              options.headers['Authorization'] =
-                  'Bearer ${authState.value!.token}';
-            }
-            return handler.next(options);
-          },
-          onError: (error, handler) async {
-            if (error.response?.statusCode == 401) {
-              await ref.read(authControllerProvider.notifier).logout();
-            }
-            return handler.next(error);
-          },
-        ),
-      );
-    }
-
     final PageController _pageController = PageController();
     int currentPage = 0;
 
     List<Widget> _pages = [
       UserDashboard(),
-      UserProject(),
+      UserProjectsScreen(),
       Calendar(),
       UserSettings(),
     ];
@@ -72,7 +47,17 @@ class _RootScreenState extends ConsumerState<RootScreen> {
       drawer: Drawer(
         child: ListView(
           children: [
-            DrawerHeader(child: Image.asset("assets/images/logo.png")),
+            DrawerHeader(
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
+                },
+                child: Image.asset("assets/images/logo.png"),
+              ),
+            ),
             ListTile(
               leading: Icon(Icons.home),
               title: Text("Home"),
@@ -118,7 +103,7 @@ class _RootScreenState extends ConsumerState<RootScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CreateProject(),
+                            builder: (context) => CreateProjectScreen(),
                           ),
                         );
                       },

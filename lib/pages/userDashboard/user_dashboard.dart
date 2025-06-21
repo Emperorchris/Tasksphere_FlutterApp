@@ -2,8 +2,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
-import 'package:tasksphere_riverpod/constants/Widgets/task_card.dart';
-import 'package:tasksphere_riverpod/constants/Widgets/task_today_card.dart';
+import 'package:tasksphere_riverpod/core/constants/Widgets/task_card.dart';
+import 'package:tasksphere_riverpod/core/constants/Widgets/task_today_card.dart';
+import 'package:tasksphere_riverpod/pages/userDashboard/calendar.dart';
 
 class UserDashboard extends ConsumerStatefulWidget {
   const UserDashboard({super.key});
@@ -227,12 +228,20 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
 
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    "Open calendar",
-                    style: TextStyle(
-                      color: Colors.indigoAccent,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15,
+                  child: InkWell(
+                    onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => Calendar()),
+                      // );
+                    },
+                    child: Text(
+                      "Open calendar",
+                      style: TextStyle(
+                        color: Colors.indigoAccent,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
                 ),

@@ -6,7 +6,8 @@ import 'package:flutter/foundation.dart';
 final dioProvider = Provider<Dio>((ref) {
   return Dio(
       BaseOptions(
-        baseUrl: "https://developers.sonichoiceservices.com/api/v1",
+        baseUrl: "https://developers.preshconcept.com.ng/api/v1",
+        // baseUrl: "https://developers.sonichoiceservices.com/api/v1",
         headers: {
           // "Content-Type": "application/json",
           "Accept": "application/json",

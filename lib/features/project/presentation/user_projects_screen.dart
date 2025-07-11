@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasksphere_riverpod/core/constants/Widgets/task_card.dart';
 import 'package:tasksphere_riverpod/features/project/domain/project_model.dart';
@@ -14,26 +15,35 @@ class UserProjectsScreen extends ConsumerStatefulWidget {
 class _UserProjectState extends ConsumerState<UserProjectsScreen> {
   @override
   Widget build(BuildContext context) {
-    bool _isInitializing = true;
-    List<ProjectModel> _projects = [];
-    String? _error;
+    bool isInitializing = true;
+    Map<String, List<ProjectModel>> projects = {
+      'allProjects': [],
+      'adminProjects': [],
+    };
+    String? errorResponse;
 
     final projectState = ref.watch(projectNotifierProvider);
 
     projectState.when(
-      data: (projects) {
-        _isInitializing = false;
-        _projects = projects;
+      data: (projectsData) {
+        isInitializing = false;
+        projects = projectsData;
+        projects['adminProjects'] = projectsData['adminProjects']!;
+        projects['allProjects'] = projectsData['allProjects']!;
+        debugPrint("Found datas!");
       },
       loading: () {
-        _isInitializing = true;
+        isInitializing = true;
       },
       error: (error, stackTrace) {
-        _isInitializing = false;
-        _error = error.toString();
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error: $error')));
+        isInitializing = false;
+        error = error.toString();
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Error: $error')));
+        });
+        return const SizedBox();
       },
     );
 
@@ -116,31 +126,35 @@ class _UserProjectState extends ConsumerState<UserProjectsScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              _projects.isNotEmpty
+
+              projects['allProjects']!.isNotEmpty
                   ? ListView.builder(
                     itemBuilder: (context, index) {
-                      final project = _projects[index];
+                      final allProjects = projects['allProjects'];
+                      final project = allProjects![index];
                       return Column(
                         children: [
                           TaskCard(
-                            image:
-                                project.image ??
-                                "https://task-sphere-five.vercel.app/assets/task-image2-BVkfm2uA.png",
-                            title: project.name ?? "No name provided",
-                            description:
-                                project.description ??
-                                "No description provided",
-                            percent: int.parse(
-                              project.completionPercentage ?? '0',
-                            ),
-                            writeup:
-                                "Project Status: ${project.status?.name ?? "No status provided"}",
+                            projectModel: project,
+                            // id: project.id!,
+                            // image:
+                            //     project.image ??
+                            //     "https://task-sphere-five.vercel.app/assets/task-image2-BVkfm2uA.png",
+                            // title: project.name ?? "No name provided",
+                            // description:
+                            //     project.description ??
+                            //     "No description provided",
+                            // percent: int.parse(
+                            //   project.completionPercentage ?? '0',
+                            // ),
+                            // writeup:
+                            //     "Project Status: ${project.status?.name ?? "No status provided"}",
                           ),
                           const SizedBox(height: 15),
                         ],
                       );
                     },
-                    itemCount: _projects.length,
+                    itemCount: projects['allProjects']!.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                   )
@@ -149,11 +163,30 @@ class _UserProjectState extends ConsumerState<UserProjectsScreen> {
                       const SizedBox(height: 80),
                       Center(
                         child:
-                            _isInitializing
+                            isInitializing
                                 ? CircularProgressIndicator.adaptive()
-                                : _error != null
-                                ? Text('Error: $_error')
-                                : Text('No projects found'),
+                                : Column(
+                                  children: [
+                                    Text('No projects found'),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      errorResponse ?? '',
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+
+                                    const SizedBox(height: 10),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        ref
+                                            .read(
+                                              projectNotifierProvider.notifier,
+                                            )
+                                            .getUserProjects();
+                                      },
+                                      child: Text('Refresh'),
+                                    ),
+                                  ],
+                                ),
                       ),
                     ],
                   ),

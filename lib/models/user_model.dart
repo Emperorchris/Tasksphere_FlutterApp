@@ -8,7 +8,7 @@ class User {
   final String? image;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final String token;
+  final String? token;
 
   User({
     this.id,
@@ -18,7 +18,7 @@ class User {
     this.image,
     this.createdAt,
     this.updatedAt,
-    required this.token,
+    this.token,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {

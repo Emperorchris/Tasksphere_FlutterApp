@@ -188,29 +188,29 @@ class _UserDashboardState extends ConsumerState<UserDashboard> {
                 ),
                 const Divider(),
                 const SizedBox(height: 10),
-                TaskCard(
-                  image:
-                      "https://task-sphere-five.vercel.app/assets/task-image2-BVkfm2uA.png",
-                  title: "TaskSphere Project Task",
-                  description: "Tasksphere Mobile App",
-                  percent: 80,
-                  writeup: "Assigned: 2 days ago",
-                ),
-                const SizedBox(height: 30),
-                const Text(
-                  "Upcoming Deadline",
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700),
-                ),
-                const Divider(),
-                const SizedBox(height: 10),
-                TaskCard(
-                  image:
-                      "https://task-sphere-five.vercel.app/assets/task-image2-BVkfm2uA.png",
-                  title: "Second Project Task",
-                  description: "Sleek Mobile App",
-                  percent: 80,
-                  writeup: "Assigned: 6 days ago",
-                ),
+                // TaskCard(
+                //   image:
+                //       "https://task-sphere-five.vercel.app/assets/task-image2-BVkfm2uA.png",
+                //   title: "TaskSphere Project Task",
+                //   description: "Tasksphere Mobile App",
+                //   percent: 80,
+                //   writeup: "Assigned: 2 days ago",
+                // ),
+                // const SizedBox(height: 30),
+                // const Text(
+                //   "Upcoming Deadline",
+                //   style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700),
+                // ),
+                // const Divider(),
+                // const SizedBox(height: 10),
+                // TaskCard(
+                //   image:
+                //       "https://task-sphere-five.vercel.app/assets/task-image2-BVkfm2uA.png",
+                //   title: "Second Project Task",
+                //   description: "Sleek Mobile App",
+                //   percent: 80,
+                //   writeup: "Assigned: 6 days ago",
+                // ),
                 const SizedBox(height: 30),
                 HorizontalWeekCalendar(
                   activeBackgroundColor: Colors.indigoAccent,

@@ -62,7 +62,7 @@ class _CreateProjectState extends ConsumerState<CreateProjectScreen> {
     required String description,
     required String startDate,
     required String endDate,
-    required ProjectStatus status,
+    required String status,
   }) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     if (_formKey.currentState!.validate()) {
@@ -393,7 +393,7 @@ class _CreateProjectState extends ConsumerState<CreateProjectScreen> {
                                 description: _projectDescriptionController.text,
                                 startDate: _startDateController.text,
                                 endDate: _endDateController.text,
-                                status: ProjectStatus.upcoming,
+                                status: "upcoming",
                               );
                             },
                             child: Container(

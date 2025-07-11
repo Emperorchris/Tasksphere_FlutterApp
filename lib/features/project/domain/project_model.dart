@@ -9,7 +9,8 @@ class ProjectModel {
   final String? startDate;
   final String? endDate;
   final String? completionPercentage;
-  final ProjectStatus? status;
+  final String? status;
+  final String? category;
   ProjectModel({
     this.id,
     this.adminId,
@@ -20,6 +21,7 @@ class ProjectModel {
     this.endDate,
     this.completionPercentage,
     this.status,
+    this.category,
   });
 
   ProjectModel copyWith({
@@ -31,7 +33,8 @@ class ProjectModel {
     String? startDate,
     String? endDate,
     String? completionPercentage,
-    ProjectStatus? status,
+    String? status,
+    String? category,
   }) {
     return ProjectModel(
       id: id ?? this.id,
@@ -43,42 +46,45 @@ class ProjectModel {
       endDate: endDate ?? this.endDate,
       completionPercentage: completionPercentage ?? this.completionPercentage,
       status: status ?? this.status,
+      category: category ?? this.category,
     );
   }
 
-
-
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
-    if(id != null){
+
+    if (id != null) {
       result.addAll({'id': id});
     }
-    if(adminId != null){
+    if (adminId != null) {
       result.addAll({'adminId': adminId});
     }
-    if(name != null){
+    if (name != null) {
       result.addAll({'name': name});
     }
-    if(image != null){
+    if (image != null) {
       result.addAll({'image': image});
     }
-    if(description != null){
+    if (description != null) {
       result.addAll({'description': description});
     }
-    if(startDate != null){
+    if (startDate != null) {
       result.addAll({'startDate': startDate});
     }
-    if(endDate != null){
+    if (endDate != null) {
       result.addAll({'endDate': endDate});
     }
-    if(completionPercentage != null){
+    if (completionPercentage != null) {
       result.addAll({'completionPercentage': completionPercentage});
     }
-    if(status != null){
-      result.addAll({'status': status!.name});
+    if (status != null) {
+      result.addAll({'status': status});
     }
-  
+
+    if (category != null) {
+      result.addAll({'category': category});
+    }
+
     return result;
   }
 
@@ -92,47 +98,52 @@ class ProjectModel {
       startDate: map['startDate'],
       endDate: map['endDate'],
       completionPercentage: map['completionPercentage'],
-      status: map['status'] != null ? ProjectStatus.values.firstWhere((e) => e.name == map['status']) : null,
+      status: map['status'],
+          // map['status'] != null
+          //     ? ProjectStatus.values.firstWhere((e) => e.name == map['status'])
+          //     : null,
+      category: map['category'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ProjectModel.fromJson(String source) => ProjectModel.fromMap(json.decode(source));
+  factory ProjectModel.fromJson(String source) =>
+      ProjectModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'CreateProjectModel(id: $id, adminId: $adminId, name: $name, image: $image, description: $description, startDate: $startDate, endDate: $endDate, completionPercentage: $completionPercentage, status: $status)';
+    return 'CreateProjectModel(id: $id, adminId: $adminId, name: $name, image: $image, description: $description, startDate: $startDate, endDate: $endDate, completionPercentage: $completionPercentage, status: $status, category: $category)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ProjectModel &&
-      other.id == id &&
-      other.adminId == adminId &&
-      other.name == name &&
-      other.image == image &&
-      other.description == description &&
-      other.startDate == startDate &&
-      other.endDate == endDate &&
-      other.completionPercentage == completionPercentage &&
-      other.status == status;
+        other.id == id &&
+        other.adminId == adminId &&
+        other.name == name &&
+        other.image == image &&
+        other.description == description &&
+        other.startDate == startDate &&
+        other.endDate == endDate &&
+        other.completionPercentage == completionPercentage &&
+        other.status == status;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      adminId.hashCode ^
-      name.hashCode ^
-      image.hashCode ^
-      description.hashCode ^
-      startDate.hashCode ^
-      endDate.hashCode ^
-      completionPercentage.hashCode ^
-      status.hashCode;
+        adminId.hashCode ^
+        name.hashCode ^
+        image.hashCode ^
+        description.hashCode ^
+        startDate.hashCode ^
+        endDate.hashCode ^
+        completionPercentage.hashCode ^
+        status.hashCode;
   }
 }
 
-enum ProjectStatus { upcoming, inProgress, completed }
+// enum ProjectStatus { upcoming, inProgress, completed }
